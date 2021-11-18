@@ -26,13 +26,16 @@ public class Consumer implements Runnable{
      */
     @Override
     public void run() {
-
+        // consumer thread should run for 1 seconds
         try {
-            Order o = queue.take();
-            System.out.println(Thread.currentThread().getName() + " takes off order " + o);
+            long timeStart = System.currentTimeMillis();
+            do {
+                Order o = queue.take();
+                System.out.println(Thread.currentThread().getName() + " takes off " + o);
+            } while(System.currentTimeMillis() - timeStart <= 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        System.out.println(Thread.currentThread().getName() + " is finished!");
     }
 }

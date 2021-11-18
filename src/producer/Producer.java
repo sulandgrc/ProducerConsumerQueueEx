@@ -1,13 +1,13 @@
 package producer;
 
 import driver.Order;
+
 import java.util.concurrent.BlockingQueue;
 
 // Producer needs to be a thread
 public class Producer implements Runnable {
 
     private BlockingQueue<Order> queue;
-
 
     public Producer(BlockingQueue<Order> queue) {
         this.queue = queue;
@@ -26,15 +26,19 @@ public class Producer implements Runnable {
      */
     @Override
     public void run() {
-
+        // producer thread should run for 10 seconds
         try {
-            // Create an order with the Producer's Thread as the origin
-            Order o = new Order(Thread.currentThread().getName(), "PS5", 1);
-            queue.put(o);
+            // save time stamp
+            long timeStart = System.currentTimeMillis();
+            do {
+                // Create an order with the Producer's Thread as the origin
+                Order o = new Order(Thread.currentThread().getName(), "PS5", 1);
+                queue.put(o);
+            } while(System.currentTimeMillis() - timeStart <= 10000);
         }catch(InterruptedException e){
             System.out.println("Producer is interrupted!");
         }
-        System.out.println(Thread.currentThread().getName() + "is finished!");
+        System.out.println(Thread.currentThread().getName() + " is finished!");
 
     }
 }

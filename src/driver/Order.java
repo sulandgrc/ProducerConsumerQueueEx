@@ -1,8 +1,11 @@
 package driver;
 
-
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Represents a product order designed to be placed on a queue by a Producer Thread and
+ * removed by a Consumber Thread
+ */
 public class Order {
     private String origin;
     private String item;
@@ -13,7 +16,12 @@ public class Order {
     // AtomicInteger
     private static AtomicInteger genId = new AtomicInteger(1);
 
-
+    /**
+     *
+     * @param origin which thread did the order originate from
+     * @param item item ordered
+     * @param qty quantity ordered
+     */
     public Order(String origin, String item, int qty) {
         this.origin = origin;
         this.item = item;
